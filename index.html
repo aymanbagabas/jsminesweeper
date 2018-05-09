@@ -72,6 +72,7 @@
           script.src = 'jsminesweeper.js';
           script.textContent = 'init(); jsminesweeper('+cols+', '+rows+', '+mines+');';
           gamewindow.document.documentElement.appendChild(script);
+          window.open('javascript:init();', 'JSMinesweeper');
           window.open('javascript:jsminesweeper('+cols+', '+rows+', '+mines+');', 'JSMinesweeper');
           gamewindow.focus();
           gamewindow.onload = function() {
