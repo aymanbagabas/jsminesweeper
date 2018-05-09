@@ -18,51 +18,53 @@ function getMousePos(canvas, evt) {
 }
 
 // Init
-canvas = document.getElementById("jsminesweeper");
-canvas.addEventListener("contextmenu", function(evt) {
-    if (evt.button == 2) evt.preventDefault();
-});
-canvas.addEventListener("mousedown", function (evt) {
-    var mousePos = getMousePos(canvas, evt);
-    var i = Math.floor((mousePos.x - xo)/c);
-    var j = Math.floor((mousePos.y - yo)/c);
-    console.log(mousePos);
-    console.log(i+ " " + j);
+function init() {
+    canvas = document.getElementById("jsminesweeper");
+    canvas.addEventListener("contextmenu", function(evt) {
+        if (evt.button == 2) evt.preventDefault();
+    });
+    canvas.addEventListener("mousedown", function (evt) {
+        var mousePos = getMousePos(canvas, evt);
+        var i = Math.floor((mousePos.x - xo)/c);
+        var j = Math.floor((mousePos.y - yo)/c);
+        console.log(mousePos);
+        console.log(i+ " " + j);
 
-    if (i >= 0 && j >= 0) {
-        if (gametimer === null && !end) {
-            gametimer = setInterval(function () {
-                timer++;
-                win = checkGame();
-                if (win) {
-                    end = true;
-                }
-                updateHeader();
-            }, 1000);
-        }
-        var mine = mines[i][j];
-        if (evt.button == 2) {
-            if (!mine.isDown) {
-                if (numberofmines != 0 || mine.isFlagged)
-                  mine.isFlagged = !mine.isFlagged;
+        if (i >= 0 && j >= 0) {
+            if (gametimer === null && !end) {
+                gametimer = setInterval(function () {
+                    timer++;
+                    win = checkGame();
+                    if (win) {
+                        end = true;
+                    }
+                    updateHeader();
+                }, 1000);
             }
-        } else {
-            click(i, j);
-        }
+            var mine = mines[i][j];
+            if (evt.button == 2) {
+                if (!mine.isDown) {
+                    if (numberofmines != 0 || mine.isFlagged)
+                      mine.isFlagged = !mine.isFlagged;
+                }
+            } else {
+                click(i, j);
+            }
 
-        update();
-    } else {
-        clearInterval(gametimer);
-        numberofmines = 0;
-        gametimer = null;
-        timer = 0;
-        end = false;
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        jsminesweeper(size.w, size.h, size.m);
-        console.log(evt);
-    }
-}, false);
-ctx = canvas.getContext("2d");
+            update();
+        } else {
+            clearInterval(gametimer);
+            numberofmines = 0;
+            gametimer = null;
+            timer = 0;
+            end = false;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            jsminesweeper(size.w, size.h, size.m);
+            console.log(evt);
+        }
+    }, false);
+    ctx = canvas.getContext("2d");
+}
 
 function click(x, y) {
     mine = mines[x][y];

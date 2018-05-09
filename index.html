@@ -25,6 +25,7 @@
             <br><br>
             <button onclick="start(document.getElementById('menu'))">Start Game</button>
     </body>
+    <script src="jsminesweeper.js"></script>
     <script language="JavaScript">
       function menu() {
           var elem = document.getElementById('menu');
@@ -61,19 +62,20 @@
           var width = (30*cols) + 20;
           var height = (30*rows) + 80;
           var windowFeatures = 'toolbar=no, location=no, directories=no, status=no, menubar=no, titlebar=no, scrollbars=no, resizable=no, ';
-          var page = "<!DOCTYPE html><html><head><meta charset='UTF-8' />"
+          var page = "<!DOCTYPE html><html><head><script src='jsminesweeper.js'></sc"+"ript><meta charset='UTF-8' />"
           + "<meta name='viewport' content='width=device-width' /><title>JSMinesweeper</title><style>body{margin:0;padding:0;overflow-x:hidden;overflow-y:hidden;}canvas{background:grey;}</style></head>"
           + "<body><canvas id='jsminesweeper' width='"+ width +"' height='"+ height +"' ></canvas></body>"
-          + "<script src='jsminesweeper.js'></sc"+"ript></html>";
+          + "<script>init();</sc"+"ript></html>";
           var gamewindow = window.open('', "JSMinesweeper", windowFeatures + "width="+(width+0)+", height="+(height+0));
           gamewindow.document.write(page);
           var script = gamewindow.document.createElement('script');
           script.src = 'jsminesweeper.js';
-          script.textContent = 'jsminesweeper('+cols+', '+rows+', '+mines+');';
+          script.textContent = 'init(); jsminesweeper('+cols+', '+rows+', '+mines+');';
           gamewindow.document.documentElement.appendChild(script);
           window.open('javascript:jsminesweeper('+cols+', '+rows+', '+mines+');', 'JSMinesweeper');
           gamewindow.focus();
           gamewindow.onload = function() {
+              init();
               jsminesweeper(cols, rows, mines);
           };
       }
