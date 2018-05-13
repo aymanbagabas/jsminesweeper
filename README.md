@@ -7,6 +7,7 @@ Yet another minesweeper implementation using HTML5 canvas.
 Left click: 
 * Within the grid it reveals a square.
 * Otherwise starts a new game.
+
 Right click marks a square within the grid.
 
 ### License
